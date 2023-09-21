@@ -13,3 +13,11 @@ Made for Nextjs app router.
 - pnpm run dev
 - open localhost:3000
 - search for a city
+
+## Stack
+
+- Next.js 13.5.2
+- Typescript
+- Mantine Core for UI
+- Openweathermap.org for weather data
+- pnpm for package management
