@@ -6,14 +6,40 @@ import { useState } from "react";
 // - [ ]  Then we are going to call the openweather api
 // - [ ]  Show the user the data based off the API result
 
+const API_KEY = "d31ad49735062005eb8050c8f9df5d4d";
+
 export default function Home() {
   const [cityInput, setCityInput] = useState<string>("");
+  console.log(cityInput);
+
+  const [weatherData, setWeatherData] = useState<any>({});
+  {
+    city: "seattle";
+  }
 
   async function getWeatherData() {
     console.log("Button pressed");
+    // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+    // query data
+    // if there is an error, throw console.error
+    // if not, save data
+    try {
+      const serverResponse = await fetch(
+        "https://api.openweathermap.org/data/2.5/weather?" +
+          "q=" +
+          cityInput +
+          "&appid=" +
+          API_KEY +
+          "&units=imperial"
+      );
+      const data = await serverResponse.json();
+      console.log(data);
+      if (data?.cod === "400") throw data;
+      setWeatherData(data);
+    } catch (err) {
+      console.error(err);
+    }
   }
-
-  console.log(cityInput);
 
   return (
     <div
@@ -52,6 +78,28 @@ export default function Home() {
               Get Weather
             </Button>
           </Group>
+          {Object.keys(weatherData).length !== 0 ? (
+            <>
+              <Group align="left">
+                <Text size="md" mt="sm">
+                  {weatherData.name} Weather
+                </Text>
+              </Group>
+
+              <Group align="">
+                <img
+                  src={
+                    "http://openweathermap.org/img/wn/" +
+                    weatherData.weather[0].icon +
+                    "@4x.png"
+                  }
+                  width="100px"
+                  height="100px"
+                />
+                <Text size="lg">Currently {weatherData.main.temp} &deg;F</Text>
+              </Group>
+            </>
+          ) : null}
         </Paper>
       </div>
     </div>
