@@ -7,6 +7,9 @@ Made for Nextjs app router.
 ## How to use
 
 - pnpm i
+- go to openweathermap.org and get an api key
+- create a .env.local file in the root of the project
+- add WEATHER_API_KEY to your .env.local
 - pnpm run dev
 - open localhost:3000
 - search for a city

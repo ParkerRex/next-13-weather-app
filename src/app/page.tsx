@@ -3,10 +3,8 @@ import { Paper, Text, Button, Group, TextInput } from "@mantine/core";
 import { useState } from "react";
 
 // - [x] We are going to design the user interface
-// - [ ]  Then we are going to call the openweather api
-// - [ ]  Show the user the data based off the API result
-
-const API_KEY = "d31ad49735062005eb8050c8f9df5d4d";
+// - [x]  Then we are going to call the openweather api
+// - [x]  Show the user the data based off the API result
 
 export default function Home() {
   const [cityInput, setCityInput] = useState<string>("");
@@ -29,7 +27,7 @@ export default function Home() {
           "q=" +
           cityInput +
           "&appid=" +
-          API_KEY +
+          process.env.WEATHER_API_KEY +
           "&units=imperial"
       );
       const data = await serverResponse.json();
